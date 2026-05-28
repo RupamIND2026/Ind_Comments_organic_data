@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institute of Neurodevelopment</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e3a8a;
+    }
+
+    p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    #message {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Institute of Neurodevelopment</h1>
+    <p>Child Registration Form</p>
+
+    <div class="form-group">
+      <label>Child Name</label>
+      <input type="text" id="childName">
+    </div>
+
+    <div class="form-group">
+      <label>Parent Name</label>
+      <input type="text" id="parentName">
+    </div>
+
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="text" id="phone">
+    </div>
+
+    <div class="form-group">
+      <label>Age</label>
+      <input type="number" id="age">
+    </div>
+
+    <div class="form-group">
+      <label>Gender</label>
+      <select id="gender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Concern / Symptoms</label>
+      <textarea id="concern" rows="4"></textarea>
+    </div>
+
+    <button onclick="submitForm()">Submit Registration</button>
+
+    <div id="message"></div>
+
+  </div>
+
+  <script>
+
+    async function submitForm() {
+
+      const data = {
+
+        childName: document.getElementById("childName").value,
+        parentName: document.getElementById("parentName").value,
+        phone: document.getElementById("phone").value,
+        age: document.getElementById("age").value,
+        gender: document.getElementById("gender").value,
+        concern: document.getElementById("concern").value
+
+      };
+
+      try {
+
+        const response = await fetch("https://script.google.com/macros/s/AKfycbzn5lVOpT9_HU7JT5KbTBfvgGUsmqWKM3u6u0uIke9bdwxVmlAwl2f77ZB-UA7Vp00l/exec", {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+
+          body: JSON.stringify(data)
+
+        });
+
+        const result = await response.json();
+
+        document.getElementById("message").innerHTML =
+          "Form Submitted Successfully";
+
+        document.getElementById("message").style.color = "green";
+
+        document.getElementById("childName").value = "";
+        document.getElementById("parentName").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("gender").value = "";
+        document.getElementById("concern").value = "";
+
+      } catch(error) {
+
+        console.log(error);
+
+        document.getElementById("message").innerHTML =
+          "Submission Failed";
+
+        document.getElementById("message").style.color = "red";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
+
